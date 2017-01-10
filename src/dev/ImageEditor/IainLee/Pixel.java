@@ -1,6 +1,5 @@
 package dev.ImageEditor.IainLee;
 
-enum Color { green, blue, red };
 
 public class Pixel {
 	
