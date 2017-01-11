@@ -37,4 +37,8 @@ public class Pixel {
 		this.blue = blue;
 	}
 
+	public String toString() {
+		return red + "\n" + green + "\n" + blue + "\n";
+	}
+	
 }

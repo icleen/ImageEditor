@@ -1,9 +1,7 @@
 package dev.ImageEditor.IainLee;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,11 +22,8 @@ public class ImageEditor {
 			return;
 		}
 		try {
-			InputStream inStream = Files.newInputStream( Paths.get( args[0] ) );
-			Reader in = new InputStreamReader( inStream, StandardCharsets.US_ASCII );
-			
+			System.out.println( args[0] );
 			List<String> lines = Files.readAllLines( Paths.get(args[0]), StandardCharsets.US_ASCII );
-			image = new Image( 1000, 750 );
 			int i;
 			for( i = 0; i < lines.size(); i++ ) {
 				System.out.println( lines.get(i) );
@@ -40,11 +35,30 @@ public class ImageEditor {
 				System.out.println( "this is an invalid file" );
 				return;
 			}
+			String s = lines.get( i++ );
+			String[] params = s.split( " " );
+			int width, height;
+			width = Integer.parseInt( params[0] );
+			height = Integer.parseInt( params[1] );
+			System.out.println( width + " " + height );
+			image = new Image( width, height );
+			int r, g, b;
+			while( i < lines.size() ) {
+				r = Integer.parseInt( lines.get( i++ ) );
+				if( i >= lines.size() ) {
+					break;
+				}
+				g = Integer.parseInt( lines.get( i++ ) );
+				if( i >= lines.size() ) {
+					break;
+				}
+				b = Integer.parseInt( lines.get( i++ ) );
+//				System.out.println( r + " " + g + " " + b);
+				image.addPixel( r, g, b );
+			}
 			
-			
-			in.close();
 		} catch (IOException e) {
-			System.out.println( "file not found" );
+			System.out.println( "input file not found" );
 			e.printStackTrace();
 		}
 		
@@ -65,29 +79,24 @@ public class ImageEditor {
 			return;
 		}
 		
-//		try {	
-//			FileOutputStream out = new FileOutputStream( args[1] );
-//			
-//			out.write( Integer.parseInt("P3 ") );
-//			out.write( image.getWidth() );
-//			out.write( Integer.parseInt(" ") );
-//			out.write( image.getHeight() );
-//			out.write( Integer.parseInt(" ") );
-//			
-//			out.close();
-//		} catch (FileNotFoundException e) {
-//			System.out.println( "Cannot find or create the specified file!" );
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			System.out.println( "Could not write the file out" );
-//			e.printStackTrace();
-//		}
+		try {
+			PrintWriter out = new PrintWriter( Files.newBufferedWriter( Paths.get(args[1]), StandardCharsets.US_ASCII ) );
+			out.println( "P3" );
+			out.println( "# my " + args[2] + " version" );
+			System.out.println( "outputting" );
+			out.println( image.toString() );
+			
+			out.close();
+		} catch( IOException e ) {
+			System.out.println( "output file not found or could not be created" );
+			e.printStackTrace();
+		}
 		
 	}
 
 	private static boolean isNum( String s ) {
 		char c = s.charAt(0);
-		System.out.println( c );
+//		System.out.println( c );
 		switch( c ) {
 		case '0':
 			return true;
