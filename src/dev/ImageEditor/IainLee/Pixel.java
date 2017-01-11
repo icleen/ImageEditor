@@ -38,7 +38,8 @@ public class Pixel {
 	}
 
 	public String toString() {
-		return red + "\n" + green + "\n" + blue + "\n";
+		String out = red + "\n" + green + "\n" + blue + "\n";
+		return out;
 	}
 	
 }

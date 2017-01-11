@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -83,9 +84,14 @@ public class ImageEditor {
 			PrintWriter out = new PrintWriter( Files.newBufferedWriter( Paths.get(args[1]), StandardCharsets.US_ASCII ) );
 			out.println( "P3" );
 			out.println( "# my " + args[2] + " version" );
+			out.println( image.getWidth() + " " + image.getHeight() );
 			System.out.println( "outputting" );
-			out.println( image.toString() );
-			
+//			out.println( image.toString() );
+			ArrayList<String> pixels = image.pixelOut();
+			for( int i = 0; i < pixels.size(); i++ ) {
+				out.println( pixels.get(i) );
+			}
+			System.out.println( "done" );
 			out.close();
 		} catch( IOException e ) {
 			System.out.println( "output file not found or could not be created" );

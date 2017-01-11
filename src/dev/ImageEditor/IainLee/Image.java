@@ -1,5 +1,7 @@
 package dev.ImageEditor.IainLee;
 
+import java.util.ArrayList;
+
 public class Image {
 	
 	private static Pixel[][] pixels;
@@ -56,13 +58,13 @@ public class Image {
 		return height;
 	}
 	
-	public String toString() {
-		String out = "";
+	public ArrayList<String> pixelOut() {
+		ArrayList<String> output = new ArrayList<>();
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				out += pixels[i][j].toString();
+				output.add( pixels[i][j].toString()  );
 			}
 		}
-		return out;
+		return output;
 	}
 }
