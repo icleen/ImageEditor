@@ -33,11 +33,20 @@ public class Image {
 	
 	public void grayscale() {
 		System.out.println( "gayscale" );
-		
+		for( int i = 0; i < height; i++ ) {
+			for( int j = 0; j < width; j++ ) {
+				pixels[i][j].grayscale();
+			}
+		}
 	}
 	
 	public void invert() {
 		System.out.println( "invert" );
+		for( int i = 0; i < height; i++ ) {
+			for( int j = 0; j < width; j++ ) {
+				pixels[i][j].invert();
+			}
+		}
 	}
 	
 	public void emboss() {

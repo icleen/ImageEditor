@@ -3,6 +3,9 @@ package dev.ImageEditor.IainLee;
 
 public class Pixel {
 	
+	private final int MAX_COLOR = 255;
+	private final int MIN_COLOR = 0;
+	
 	private int red;
 	private int green;
 	private int blue;
@@ -11,6 +14,30 @@ public class Pixel {
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
+	}
+	
+	public void grayscale() {
+		int avg = (red + green + blue) / 3;
+		red = avg;
+		green = avg;
+		blue = avg;
+	}
+	
+	public void invert() {
+		red = 255 - red;
+		green = 255 - green;
+		blue = 255 - blue;
+		if( blue < 0 || blue > 255 || red < 0 || red > 255 || green < 0 || green > 255 ) {
+			System.out.println( "one of the colors is off" );
+		}
+	}
+	
+	public void emboss() {
+		
+	}
+	
+	public void motionblur( int degree ) {
+		
 	}
 
 	public int getRed() {
