@@ -32,7 +32,7 @@ public class Image {
 	}
 	
 	public void grayscale() {
-		System.out.println( "gayscale" );
+//		System.out.println( "gayscale" );
 		for( int i = 0; i < height; i++ ) {
 			for( int j = 0; j < width; j++ ) {
 				pixels[i][j].grayscale();
@@ -41,7 +41,7 @@ public class Image {
 	}
 	
 	public void invert() {
-		System.out.println( "invert" );
+//		System.out.println( "invert" );
 		for( int i = 0; i < height; i++ ) {
 			for( int j = 0; j < width; j++ ) {
 				pixels[i][j].invert();
@@ -50,7 +50,7 @@ public class Image {
 	}
 	
 	public void emboss() {
-		System.out.println( "emboss" );
+//		System.out.println( "emboss" );
 		try {
 			int reddif, grndif, bludif;
 			for( int i = height - 1; i > 0; i-- ) {
@@ -110,8 +110,28 @@ public class Image {
 	}
 	
 	public void motionblur( String degree ) {
-		System.out.println( "motionblur" );
+//		System.out.println( "motionblur" );
 		int deg = Integer.parseInt( degree );
+		int avgr = 0, avgg = 0, avgb = 0;
+		int div = 1;
+		for( int i = 0; i < height; i++ ) {
+			for( int j = 0; j < width; j++ ) {
+				avgr = 0;
+				avgg = 0;
+				avgb = 0;
+				for( int k = 0; k < deg; k++ ) {
+					if( k + j < width ) {
+						avgr += pixels[i][k + j].getRed();
+						avgg += pixels[i][k + j].getGreen();
+						avgb += pixels[i][k + j].getBlue();
+						div = k + 1;
+					}
+				}
+				pixels[i][j].setRed(avgr / div);
+				pixels[i][j].setGreen(avgg / div);
+				pixels[i][j].setBlue(avgb / div);
+			}
+		}
 		
 	}
 	

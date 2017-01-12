@@ -27,7 +27,7 @@ public class ImageEditor {
 			List<String> lines = Files.readAllLines( Paths.get(args[0]), StandardCharsets.US_ASCII );
 			int i;
 			for( i = 0; i < lines.size(); i++ ) {
-				System.out.println( lines.get(i) );
+//				System.out.println( lines.get(i) );
 				if( isNum( lines.get(i) ) ) {
 					break;
 				}
@@ -41,7 +41,7 @@ public class ImageEditor {
 			int width, height;
 			width = Integer.parseInt( params[0] );
 			height = Integer.parseInt( params[1] );
-			System.out.println( width + " " + height );
+//			System.out.println( width + " " + height );
 			image = new Image( width, height );
 			i++;
 			int r, g, b;
@@ -75,6 +75,11 @@ public class ImageEditor {
 				System.out.println( "Incorrect input format\n" + USAGE );
 				return;
 			}
+			int check = Integer.parseInt( args[3] );
+			if( check <= 0 ) {
+				System.out.println( "Incorrect input format\n" + USAGE );
+				return;
+			}
 			image.motionblur( args[3] );
 		}else {
 			System.out.println( "Incorrect input format\n" + USAGE );
@@ -87,13 +92,13 @@ public class ImageEditor {
 			out.println( "# my " + args[2] + " version" );
 			out.println( image.getWidth() + " " + image.getHeight() );
 			out.println( "255" );
-			System.out.println( "outputting" );
+//			System.out.println( "outputting" );
 //			out.println( image.toString() );
 			ArrayList<String> pixels = image.pixelOut();
 			for( int i = 0; i < pixels.size(); i++ ) {
 				out.println( pixels.get(i) );
 			}
-			System.out.println( "done" );
+//			System.out.println( "done" );
 			out.close();
 		} catch( IOException e ) {
 			System.out.println( "output file not found or could not be created" );
