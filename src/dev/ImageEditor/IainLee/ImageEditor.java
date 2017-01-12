@@ -43,16 +43,17 @@ public class ImageEditor {
 			height = Integer.parseInt( params[1] );
 			System.out.println( width + " " + height );
 			image = new Image( width, height );
+			i++;
 			int r, g, b;
 			while( i < lines.size() ) {
 				r = Integer.parseInt( lines.get( i++ ) );
-				if( i >= lines.size() ) {
-					break;
-				}
+//				if( i >= lines.size() ) {
+//					break;
+//				}
 				g = Integer.parseInt( lines.get( i++ ) );
-				if( i >= lines.size() ) {
-					break;
-				}
+//				if( i >= lines.size() ) {
+//					break;
+//				}
 				b = Integer.parseInt( lines.get( i++ ) );
 //				System.out.println( r + " " + g + " " + b);
 				image.addPixel( r, g, b );
@@ -85,6 +86,7 @@ public class ImageEditor {
 			out.println( "P3" );
 			out.println( "# my " + args[2] + " version" );
 			out.println( image.getWidth() + " " + image.getHeight() );
+			out.println( "255" );
 			System.out.println( "outputting" );
 //			out.println( image.toString() );
 			ArrayList<String> pixels = image.pixelOut();

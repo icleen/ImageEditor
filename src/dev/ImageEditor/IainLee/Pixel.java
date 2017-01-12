@@ -65,7 +65,7 @@ public class Pixel {
 	}
 
 	public String toString() {
-		String out = red + "\n" + green + "\n" + blue + "\n";
+		String out = red + "\n" + green + "\n" + blue;
 		return out;
 	}
 	
