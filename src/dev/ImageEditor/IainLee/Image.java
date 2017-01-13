@@ -152,4 +152,19 @@ public class Image {
 		}
 		return output;
 	}
+	
+	public String toString() {
+		StringBuilder output = new StringBuilder();
+		
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				output.append( pixels[i][j].toString() );
+			}
+		}
+		
+		return output.toString();
+	}
+	
 }
+
+

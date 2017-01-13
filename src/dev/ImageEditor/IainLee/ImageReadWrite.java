@@ -2,25 +2,27 @@ package dev.ImageEditor.IainLee;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class ImageReadWrite {
 
-	public Image read( String fileName ) throws FileNotFoundException {
-		File inFile = new File( fileName );
+	public static Image read( String inFile ) throws FileNotFoundException, IOException {
 		Scanner scanner = new Scanner(
 				new BufferedReader(
-						new FileReader( fileName ) ) ).useDelimiter( "((#[^\\n]*\\n)|(\\s+))+" );
+						new FileReader( inFile ) ) );
+		scanner.useDelimiter( "((#[^\\n]*\\n)|(\\s+))+" );
 		
 		scanner.nextLine(); // skip line of P3
+		
 		int width = scanner.nextInt();
 		int height = scanner.nextInt();
 		Image image = new Image( width, height );
+		
 		scanner.next(); // skip the 255 color max
 		int red, green, blue;
 		while( scanner.hasNext() ) {
@@ -34,11 +36,17 @@ public class ImageReadWrite {
 		return image;
 	}
 	
-	public void write( String fileName ) {
-		File outFile = new File( fileName );
+	public static void write( String outFile, Image image ) throws IOException {
 		PrintWriter writer = new PrintWriter( 
 				new BufferedWriter( 
 						new FileWriter( outFile ) ) );
+		
+		writer.println( "P3" );
+		writer.println( image.getWidth() + " " + image.getHeight() );
+		writer.println( "255" );
+		writer.print( image.toString() );
+		
+		writer.close();
 	}
 
 }

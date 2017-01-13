@@ -24,22 +24,14 @@ public class Pixel {
 	}
 	
 	public void invert() {
-		red = 255 - red;
-		green = 255 - green;
-		blue = 255 - blue;
-		if( blue < 0 || blue > 255 || red < 0 || red > 255 || green < 0 || green > 255 ) {
+		red = MAX_COLOR - red;
+		green = MAX_COLOR - green;
+		blue = MAX_COLOR - blue;
+		if( blue < MIN_COLOR || blue > MAX_COLOR || red < MIN_COLOR || red > MAX_COLOR || green < MIN_COLOR || green > MAX_COLOR ) {
 			System.out.println( "one of the colors is off" );
 		}
 	}
 	
-	public void emboss() {
-		
-	}
-	
-	public void motionblur( int degree ) {
-		
-	}
-
 	public int getRed() {
 		return red;
 	}
@@ -65,7 +57,7 @@ public class Pixel {
 	}
 
 	public String toString() {
-		String out = red + "\n" + green + "\n" + blue;
+		String out = red + "\n" + green + "\n" + blue + "\n";
 		return out;
 	}
 	

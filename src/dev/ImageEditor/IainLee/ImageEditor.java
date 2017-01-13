@@ -1,12 +1,6 @@
 package dev.ImageEditor.IainLee;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ImageEditor {
@@ -23,42 +17,7 @@ public class ImageEditor {
 			return;
 		}
 		try {
-			System.out.println( args[0] );
-			List<String> lines = Files.readAllLines( Paths.get(args[0]), StandardCharsets.US_ASCII );
-			int i;
-			for( i = 0; i < lines.size(); i++ ) {
-//				System.out.println( lines.get(i) );
-				if( isNum( lines.get(i) ) ) {
-					break;
-				}
-			}
-			if( i >= lines.size() ) {
-				System.out.println( "this is an invalid file" );
-				return;
-			}
-			String s = lines.get( i++ );
-			String[] params = s.split( " " );
-			int width, height;
-			width = Integer.parseInt( params[0] );
-			height = Integer.parseInt( params[1] );
-//			System.out.println( width + " " + height );
-			image = new Image( width, height );
-			i++;
-			int r, g, b;
-			while( i < lines.size() ) {
-				r = Integer.parseInt( lines.get( i++ ) );
-//				if( i >= lines.size() ) {
-//					break;
-//				}
-				g = Integer.parseInt( lines.get( i++ ) );
-//				if( i >= lines.size() ) {
-//					break;
-//				}
-				b = Integer.parseInt( lines.get( i++ ) );
-//				System.out.println( r + " " + g + " " + b);
-				image.addPixel( r, g, b );
-			}
-			
+			image = ImageReadWrite.read( args[0] );
 		} catch (IOException e) {
 			System.out.println( "input file not found" );
 			e.printStackTrace();
@@ -87,52 +46,12 @@ public class ImageEditor {
 		}
 		
 		try {
-			PrintWriter out = new PrintWriter( Files.newBufferedWriter( Paths.get(args[1]), StandardCharsets.US_ASCII ) );
-			out.println( "P3" );
-			out.println( "# my " + args[2] + " version" );
-			out.println( image.getWidth() + " " + image.getHeight() );
-			out.println( "255" );
-//			System.out.println( "outputting" );
-//			out.println( image.toString() );
-			ArrayList<String> pixels = image.pixelOut();
-			for( int i = 0; i < pixels.size(); i++ ) {
-				out.println( pixels.get(i) );
-			}
-//			System.out.println( "done" );
-			out.close();
+			ImageReadWrite.write( args[1], image );
 		} catch( IOException e ) {
 			System.out.println( "output file not found or could not be created" );
 			e.printStackTrace();
 		}
 		
-	}
-
-	private static boolean isNum( String s ) {
-		char c = s.charAt(0);
-//		System.out.println( c );
-		switch( c ) {
-		case '0':
-			return true;
-		case '1':
-			return true;
-		case '2':
-			return true;
-		case '3':
-			return true;
-		case '4':
-			return true;
-		case '5':
-			return true;
-		case '6':
-			return true;
-		case '7':
-			return true;
-		case '8':
-			return true;
-		case '9':
-			return true;
-		}
-		return false;
 	}
 	
 }
